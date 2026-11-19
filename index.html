@@ -204,33 +204,23 @@ nav.solid .brand span{color:var(--blue)}
 
 /* ===== PRESSE ===== */
 .press{background:var(--soft)}
-.clips{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.clip{display:flex;flex-direction:column;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s}
-.clip:hover{transform:translateY(-8px);box-shadow:0 30px 60px -30px rgba(10,15,30,.35)}
-.clip .shot{position:relative;height:270px;background:#EEF1F7;border-bottom:1px solid var(--line);overflow:hidden}
-.clip .shot .ph{position:absolute;inset:0}
-.clip .shot .ph::before{font-size:.95rem;font-weight:700;color:#fff;padding:20px;text-align:center}
-.clip:hover .shot img{transform:scale(1.05)}
-.clip .shot .badge{position:absolute;left:14px;bottom:14px;z-index:2;background:#fff;color:var(--ink);font-weight:800;font-size:.85rem;padding:6px 11px;border-radius:10px;box-shadow:0 6px 16px -8px rgba(0,0,0,.4)}
-.clip .b{padding:22px 22px 20px;display:flex;flex-direction:column;flex:1}
-.clip small{color:var(--mute);font-weight:600;font-size:.85rem}
-.clip h3{font-size:1.2rem;font-weight:700;letter-spacing:-.02em;line-height:1.25;margin:8px 0 10px}
-.clip p{color:var(--ink2);font-size:.95rem;flex:1}
-.clip .go{margin-top:16px;font-weight:700;color:var(--blue);font-size:.93rem;display:inline-flex;align-items:center;gap:6px}
-.clip .go svg{width:15px;height:15px;transition:transform .3s}
-.clip:hover .go svg{transform:translate(3px,-3px)}
-.clip.big{grid-column:span 2;flex-direction:row}
-.clip.big .shot{flex:1.1;height:auto;min-height:300px;border-bottom:none;border-right:1px solid var(--line)}
-.clip.big .b{flex:1;padding:30px}
-.clip.big h3{font-size:1.6rem}
-@media(max-width:900px){.clips{grid-template-columns:1fr}.clip.big{grid-column:span 1;flex-direction:column}.clip.big .shot{min-height:220px;border-right:none;border-bottom:1px solid var(--line)}}
-
-
-.clip .shot{background:#fff}
-.clip .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
-.clip .shot::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,rgba(255,255,255,.95));pointer-events:none}
-.clip.big .shot::after{display:none}
-.clip.big .shot img{object-position:left top}
+.press .sh{margin-bottom:28px}
+.press-nav{display:flex;justify-content:flex-end;gap:10px;margin:-64px 0 18px}
+.pn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:1.1rem;cursor:pointer;transition:background .2s,color .2s}
+.pn:hover{background:var(--ink);color:#fff}
+.clips{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 20px;scrollbar-width:thin}
+.clip{flex:0 0 250px;scroll-snap-align:start;display:flex;flex-direction:column;background:#fff;border-radius:16px;border:1px solid var(--line);overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+.clip:hover{transform:translateY(-5px);box-shadow:0 20px 40px -24px rgba(10,15,30,.35)}
+.clip .shot{height:165px;background:#E8EBF1;padding:12px 14px 0;border-bottom:1px solid var(--line);overflow:hidden}
+.clip .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:6px 6px 0 0;box-shadow:0 6px 18px -6px rgba(10,15,30,.35);transition:transform .8s cubic-bezier(.16,1,.3,1);transform-origin:top center}
+.clip:hover .shot img{transform:scale(1.04)}
+.clip .b{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.clip small{color:var(--mute);font-size:.78rem}
+.clip small b{color:var(--ink);font-weight:700}
+.clip h3{font-size:.98rem;font-weight:700;letter-spacing:-.01em;line-height:1.3;margin:6px 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clip .go{margin-top:auto;font-weight:700;color:var(--blue);font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
+.clip .go svg{width:13px;height:13px}
+@media(max-width:700px){.press-nav{display:none}.clip{flex-basis:220px}}
 .plist{margin-top:40px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:10px 26px 14px}
 .plist h3{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;padding:18px 0 10px}
 .pl{display:grid;grid-template-columns:170px 1fr 150px 24px;gap:18px;align-items:center;padding:14px 0;border-top:1px solid var(--line);transition:color .2s,padding .3s}
@@ -270,6 +260,19 @@ nav.solid .brand span{color:var(--blue)}
 .sem{margin-top:18px;display:flex;align-items:center;gap:18px;padding:22px 26px;border-radius:22px;border:1px dashed rgba(255,255,255,.25)}
 .sem .e{font-size:2rem}
 .sem b{color:var(--sun)}
+
+
+.cl{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:relative;z-index:2}
+.cl a{font-size:.8rem;font-weight:700;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s,color .2s}
+.cl a:hover{background:#fff;color:var(--ink)}
+.card .cr{display:block;font-size:.68rem;color:rgba(255,255,255,.55);margin-top:6px}
+.ob{display:inline-flex;margin-top:20px;background:var(--sun);color:var(--ink);font-weight:700;padding:12px 20px;border-radius:999px;transition:transform .2s}
+.ob:hover{transform:translateY(-2px)}
+a.sem{color:#fff;transition:border-color .3s,background .3s}
+a.sem:hover{border-color:var(--sun);background:rgba(255,255,255,.04)}
+.sem .sg{margin-left:auto;white-space:nowrap;font-weight:700;color:var(--ink);background:var(--sun);padding:10px 16px;border-radius:999px;font-size:.9rem}
+@media(max-width:620px){.sem{flex-wrap:wrap}.sem .sg{margin-left:0}}
+.chap.now .txt a{text-decoration:underline;text-decoration-color:var(--sun);text-underline-offset:3px}
 
 /* ===== CONTACT ===== */
 .end{padding:110px 0 60px}
@@ -395,7 +398,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <h3 class="rv">Get Immobilier : un centre de formation pour investir dans l'immobilier</h3>
         <p class="txt rv">Tout a commencé avec 4 formations phares. Nous avons aussi créé un <b>accompagnement de A à Z</b> : on trouvait le bien, on gérait la fiscalité, on faisait nous-mêmes les travaux, puis on le mettait en location, surtout sur Airbnb.</p>
         <div class="feat">
-          <div class="ph rv" data-ico="🏠" style="--g:linear-gradient(135deg,#1E3A8A,#0A0F1E)"><img src="images/get-immobilier.jpg" data-alt="https://images.unsplash.com/photo-1504309092620-4d0ec726efa4?w=1100&q=80&auto=format&fit=crop" alt="Rénovation d'un appartement" loading="lazy" onerror="fb(this)"></div>
+          <div class="ph rv" data-ico="🏠" style="--g:linear-gradient(135deg,#1E3A8A,#0A0F1E)"><img src="images/get-immobilier.jpg" alt="Logo Get Immobilier" style="object-fit:contain;background:#fff" loading="lazy" onerror="fb(this)"></div>
           <div class="list4">
             <div class="li rv"><div class="ic">🔨</div><div><b>Travaux Rentables</b><span>Rénover à moins de 300 € le m².</span></div></div>
             <div class="li rv d1"><div class="ic">🔎</div><div><b>Trouver un Bien Rentable</b><span>Dénicher les biens rentables pour les investisseurs.</span></div></div>
@@ -430,11 +433,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <h3 class="rv">Un parc de distributeurs automatiques et des laveries</h3>
         <p class="txt rv">Nous avons monté notre propre parc de distributeurs et nos laveries automatiques, puis créé nos propres lessives pour les laveries. Ensuite, nous avons créé deux formations pour aider les autres à faire pareil, avec le site distributeurs-rentables.fr. <b>Ça a très bien marché.</b></p>
         <div class="cards">
-          <div class="card rv"><div class="ph" data-ico="🥤" style="--g:linear-gradient(135deg,#0E7490,#0A0F1E)"><img src="images/distributeurs.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Terrain</span><h4>Parc de distributeurs</h4><p>Un parc de distributeurs automatiques, créé et exploité par nous.</p></div>
+          <div class="card rv"><div class="ph" data-ico="🥤" style="--g:linear-gradient(135deg,#0E7490,#0A0F1E)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chaqwa_machine.jpg/1024px-Chaqwa_machine.jpg" alt="Distributeur automatique de café" loading="lazy" onerror="fb(this)"></div><span class="tg">Terrain</span><h4>Parc de distributeurs automatiques</h4><p>Distributeurs de café, de boissons et de snacks, créés et exploités par nous.</p><small class="cr">Photo d'illustration : The RedBurn, Wikimedia Commons, CC BY-SA 4.0</small><div class="cl"><a href="https://distributeurs-rentables.fr/" target="_blank" rel="noopener">🌐 distributeurs-rentables.fr</a></div></div>
           <div class="card rv d1"><div class="ph" data-ico="🫧" style="--g:linear-gradient(135deg,#0284C7,#0C4A6E)"><img src="images/laverie.jpg" data-alt="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Terrain</span><h4>Laveries automatiques</h4><p>Créées de zéro, dont la première laverie à l'ozone de France, en 2021.</p></div>
-          <div class="card rv d2"><div class="ph" data-ico="🎓" style="--g:linear-gradient(135deg,#4338CA,#1E1B4B)"><img src="images/formations.jpg" data-alt="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Formation</span><h4>Distributeur Rentable et Laverie Rentable</h4><p>Deux formations pour monter son parc ou sa laverie.</p></div>
+          <div class="card rv d2"><div class="ph" data-ico="🎓" style="--g:linear-gradient(135deg,#4338CA,#1E1B4B)"><img src="images/formations.jpg" data-alt="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Formation</span><h4>Distributeur Rentable et Laverie Rentable</h4><p>Deux formations pour monter son parc ou sa laverie.</p><div class="cl"><a href="https://distributeurs-rentables.fr/" target="_blank" rel="noopener">🌐 distributeurs-rentables.fr</a></div></div>
         </div>
-        <div class="cards" style="margin-top:16px"><div class="card rv" style="grid-column:1/-1;min-height:260px"><div class="ph" data-ico="🧴" style="--g:linear-gradient(135deg,#0369A1,#082F49)"><img src="images/lessive-laverie.jpg" data-alt="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Produit et e-commerce</span><h4>Lessive-laverie.fr : nos propres lessives pour les laveries</h4><p>Nous avons créé les lessives et leurs formules, puis le site pour les vendre aux professionnels des laveries automatiques.</p></div></div>
+        <div class="cards" style="margin-top:16px"><div class="card rv" style="grid-column:1/-1;min-height:260px"><div class="ph" data-ico="🧴" style="--g:linear-gradient(135deg,#0369A1,#082F49)"><img src="images/lessive-laverie.jpg" data-alt="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=1400&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Produit et e-commerce</span><h4>Lessive-laverie.fr : nos propres lessives pour les laveries</h4><p>Nous avons créé les lessives et leurs formules, puis le site pour les vendre aux professionnels des laveries automatiques.</p><div class="cl"><a href="https://www.lessive-laverie.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div></div>
         <a class="yt rv" href="https://www.youtube.com/results?search_query=Quentin+Doulcier" target="_blank" rel="noopener">
           <div class="logo"><i></i></div>
           <div><b>130 000+ abonnés</b><span>La chaîne YouTube de mon associé, Quentin Doulcier. Nous l'avons construite et développée ensemble, et elle est toujours active.</span></div>
@@ -450,7 +453,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <h3 class="rv">Immobilier, trottinettes, restaurants, sites et e-commerce</h3>
         <p class="txt rv">Pendant tout ce temps, j'ai mené plusieurs activités de front, dans des domaines très différents.</p>
         <div class="cards">
-          <div class="card wide rv"><div class="ph" data-ico="🛴" style="--g:linear-gradient(135deg,#0F766E,#042F2E)"><img src="images/trottinettes.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">2021 · Castres</span><h4>150 trottinettes électriques en libre-service</h4><p>Mises en place avec Bird dans le centre-ville de Castres : 1&nbsp;700 trajets dès la première semaine.</p></div>
+          <div class="card wide rv"><div class="ph" data-ico="🛴" style="--g:linear-gradient(135deg,#0F766E,#042F2E)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bird_Scooters_Torikatu_Oulu_20220516.jpg/1280px-Bird_Scooters_Torikatu_Oulu_20220516.jpg" alt="Trottinettes Bird en ville" loading="lazy" onerror="fb(this)"></div><span class="tg">2021 · Castres</span><h4>150 trottinettes électriques en libre-service</h4><p>Mises en place avec Bird dans le centre-ville de Castres : 1&nbsp;700 trajets dès la première semaine.</p></div>
           <div class="card rv d1"><div class="ph" data-ico="🔑" style="--g:linear-gradient(135deg,#334155,#0F172A)"><img src="images/airbnb.jpg" data-alt="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Immobilier</span><h4>Appartements et Airbnb</h4><p>Plusieurs appartements, en location classique et saisonnière.</p></div>
           <div class="card rv"><div class="ph" data-ico="🍕" style="--g:linear-gradient(135deg,#B91C1C,#450A0A)"><img src="images/restaurants.jpg" data-alt="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Restauration</span><h4>Une pizzeria et un fast-food chinois</h4><p>Avec la société VD France Restauration.</p></div>
           <div class="card rv d1"><div class="ph" data-ico="🛒" style="--g:linear-gradient(135deg,#7C3AED,#2E1065)"><img src="images/ecommerce.jpg" data-alt="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">E-commerce</span><h4>Plus de 500 000 € sur Shopify</h4><p>Plusieurs boutiques en ligne, créées et gérées par mes soins.</p></div>
@@ -466,12 +469,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <h3 class="rv">Les loisirs : une église, un complexe, des rachats d'entreprises</h3>
         <p class="txt rv">Nous avons racheté une église pour en faire le premier escape game d'Europe dans une ancienne église, puis enchaîné les créations et les reprises : <b>rachats de sociétés, reprise après liquidation, locaux rachetés puis revendus.</b></p>
         <div class="cards">
-          <div class="card wide rv"><div class="ph" data-ico="⛪" style="--g:linear-gradient(135deg,#3B2A6B,#0A0F1E)"><img src="images/escape-castres.jpg" data-alt="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Achat de l'église en 2020 · Ouverture en 2022</span><h4>Escape The Game, Castres</h4><p>La chapelle du Saint-Sacrement, construite en 1890, est devenue un escape game de 300 m².</p></div>
-          <div class="card rv d1"><div class="ph" data-ico="🪓" style="--g:linear-gradient(135deg,#9A3412,#1C0A04)"><img src="images/complexe.jpg" data-alt="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Création · 2023</span><h4>Le Complexe, Castres</h4><p>1&nbsp;600 m², 8 activités, 24 pistes de lancer de haches.</p></div>
-          <div class="card rv"><div class="ph" data-ico="🗝️" style="--g:linear-gradient(135deg,#065F46,#022C22)"><img src="images/escape-narbonne.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Rachat de société</span><h4>Escape game, Narbonne</h4><p>La reprise d'un escape game existant.</p></div>
-          <div class="card rv d1"><div class="ph" data-ico="🏴‍☠️" style="--g:linear-gradient(135deg,#7C2D12,#1C1917)"><img src="images/escape-montpellier.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Reprise après liquidation</span><h4>Escape The Game, Montpellier</h4><p>Recréé en escape game 100 % pirates.</p></div>
-          <div class="card rv d2"><div class="ph" data-ico="🤸" style="--g:linear-gradient(135deg,#BE185D,#500724)"><img src="images/trampoline.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Rachat de société</span><h4>Trampoline Park, Savoie</h4><p>La reprise d'un trampoline park.</p></div>
-          <div class="card rv"><div class="ph" data-ico="🧱" style="--g:linear-gradient(135deg,#D97706,#7C2D12)"><img src="images/my-bricks.jpg" data-alt="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Ma marque · 2025</span><h4>My Bricks</h4><p>J'ai créé le concept et la marque, qui m'appartient toujours. Elle est exploitée à Castres et à Montpellier.</p></div>
+          <div class="card wide rv"><div class="ph" data-ico="⛪" style="--g:linear-gradient(135deg,#3B2A6B,#0A0F1E)"><img src="images/escape-castres.jpg" data-alt="https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Achat de l'église en 2020 · Ouverture en 2022</span><h4>Escape The Game, Castres</h4><p>La chapelle du Saint-Sacrement, construite en 1890, est devenue un escape game de 300 m².</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=Escape+The+Game+61+avenue+Charles+de+Gaulle+81100+Castres" target="_blank" rel="noopener">📍 Fiche Google</a><a href="https://escapethegame.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div>
+          <div class="card rv d1"><div class="ph" data-ico="🪓" style="--g:linear-gradient(135deg,#9A3412,#1C0A04)"><img src="images/complexe.jpg" data-alt="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Création · 2023</span><h4>Le Complexe, Castres</h4><p>1&nbsp;600 m², 8 activités, 24 pistes de lancer de haches.</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=Le+Complexe+12+Rue+M%C3%A9rigonde+81100+Castres" target="_blank" rel="noopener">📍 Fiche Google</a><a href="https://complexe-castres.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div>
+          <div class="card rv"><div class="ph" data-ico="🗝️" style="--g:linear-gradient(135deg,#065F46,#022C22)"><img src="images/escape-narbonne.jpg" alt="Puzzle Narbonne" loading="lazy" onerror="fb(this)"></div><span class="tg">Rachat de société</span><h4>Puzzle Narbonne, escape game</h4><p>La reprise d'un escape game existant à Narbonne.</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=Puzzle+Narbonne+Escape+Game+17+route+de+Lunes+Narbonne" target="_blank" rel="noopener">📍 Fiche Google</a><a href="https://www.puzzle-narbonne.com/" target="_blank" rel="noopener">🌐 Site</a></div></div>
+          <div class="card rv d1"><div class="ph" data-ico="🏴‍☠️" style="--g:linear-gradient(135deg,#7C2D12,#1C1917)"><img src="images/escape-montpellier.jpg" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Reprise après liquidation</span><h4>Escape The Game, Montpellier</h4><p>Recréé en escape game 100 % pirates.</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=Escape+The+Game+Montpellier+1044+Avenue+de+l%27Europe+34170+Castelnau-le-Lez" target="_blank" rel="noopener">📍 Fiche Google</a><a href="https://escapethegame-montpellier.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div>
+          <div class="card rv d2"><div class="ph" data-ico="🤸" style="--g:linear-gradient(135deg,#BE185D,#500724)"><img src="images/trampoline.jpg" alt="Just Jump, Marnaz" loading="lazy" onerror="fb(this)"></div><span class="tg">Rachat de société</span><h4>Just Jump, trampoline park</h4><p>La reprise d'un trampoline park à Marnaz, en Haute-Savoie.</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=Just+Jump+369+Rue+des+Abeilles+74460+Marnaz" target="_blank" rel="noopener">📍 Fiche Google</a><a href="https://just-jump.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div>
+          <div class="card rv"><div class="ph" data-ico="🧱" style="--g:linear-gradient(135deg,#D97706,#7C2D12)"><img src="images/my-bricks.jpg" data-alt="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Ma marque · 2025</span><h4>My Bricks</h4><p>J'ai créé le concept et la marque, qui m'appartient toujours. Elle est exploitée à Castres et à Montpellier.</p><div class="cl"><a href="https://www.google.com/maps/search/?api=1&query=My+Bricks+Castres" target="_blank" rel="noopener">📍 Castres</a><a href="https://www.google.com/maps/search/?api=1&query=My+Bricks+Montpellier" target="_blank" rel="noopener">📍 Montpellier</a><a href="https://mybricks-castres.fr/" target="_blank" rel="noopener">🌐 Site</a></div></div>
           <div class="card wide rv d1"><div class="ph" data-ico="🏢" style="--g:linear-gradient(135deg,#334155,#0F172A)"><img src="images/locaux.jpg" data-alt="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy" onerror="fb(this)"></div><span class="tg">Opération immobilière</span><h4>Des locaux rachetés en liquidation judiciaire, puis revendus</h4><p>Savoir acheter au bon moment, puis revendre.</p></div>
         </div>
       </div>
@@ -491,7 +494,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <div class="side"><div class="yr wd">Aujourd'hui</div><div class="lab">Je transmets</div></div>
       <div>
         <h3>Un nouvel associé, deux académies</h3>
-        <p class="txt">Je me suis associé pour créer l'<b>Académie des Repreneurs</b> et l'<b>Académie des Entrepreneurs</b>, avec mon expérience et celle de mon associé. En parallèle, j'implémente des outils IA dans les entreprises. Transmettre est devenu mon métier.</p>
+        <p class="txt">Je me suis associé pour créer l'<a href="https://www.academiedesrepreneurs.fr/" target="_blank" rel="noopener"><b>Académie des Repreneurs</b></a> et l'<a href="https://www.academiedesentrepreneurs.fr/" target="_blank" rel="noopener"><b>Académie des Entrepreneurs</b></a>, avec mon expérience et celle de mon associé. En parallèle, j'implémente des outils IA dans les entreprises. Transmettre est devenu mon métier.</p>
         <a href="#aide" class="go">Voir comment je vous aide</a>
       </div>
     </article>
@@ -531,70 +534,71 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <h2>Ils en ont <span class="it">parlé</span>.</h2>
       <p>19 parutions dans la presse : La Dépêche, Le Parisien, ici, actu.fr, Le Journal d'Ici… Voici les articles, et la liste complète juste en dessous.</p>
     </div>
-    <div class="clips">
-      <a class="clip big rv" href="https://www.leparisien.fr/tarn-81/a-castres-une-ancienne-eglise-transformee-en-escape-game-13-11-2022-ACZ6CMG7BRFUBBOQ3EMVJZMZWE.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Le Parisien</span><img src="presse/leparisien-escape.jpg" alt="Capture de l'article : À Castres, une ancienne église transformée en escape game" loading="lazy"></div>
-        <div class="b"><small>13 novembre 2022</small><h3>À Castres, une ancienne église transformée en escape game</h3><p>La chapelle du Saint-Sacrement, désacralisée en 2012, aménagée dans le respect du patrimoine.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+    <div class="press-nav"><button class="pn" id="pprev" aria-label="Articles précédents">←</button><button class="pn" id="pnext" aria-label="Articles suivants">→</button></div>
+    <div class="clips" id="clips">
+      <a class="clip rv" href="https://www.leparisien.fr/tarn-81/a-castres-une-ancienne-eglise-transformee-en-escape-game-13-11-2022-ACZ6CMG7BRFUBBOQ3EMVJZMZWE.php" target="_blank" rel="noopener">
+        <div class="shot"><img src="presse/leparisien-escape.jpg" alt="Capture de l'article : À Castres, une ancienne église transformée en escape game" loading="lazy"></div>
+        <div class="b"><small><b>Le Parisien</b> · 13 novembre 2022</small><h3>À Castres, une ancienne église transformée en escape game</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.ladepeche.fr/2022/11/03/castres-ils-ouvrent-un-escape-game-dans-une-ancienne-eglise-une-premiere-en-europe-10779494.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-escape-2022.jpg" alt="Capture de l'article : Castres : ils ouvrent un escape game dans une ancienne église, une première en Europe" loading="lazy"></div>
-        <div class="b"><small>3 novembre 2022</small><h3>Castres : ils ouvrent un escape game dans une ancienne église, une première en Europe</h3><p>L'ouverture de l'escape game dans la chapelle rachetée.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/ladepeche-escape-2022.jpg" alt="Capture de l'article : Castres : ils ouvrent un escape game dans une ancienne église, une première en Europe" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 3 novembre 2022</small><h3>Castres : ils ouvrent un escape game dans une ancienne église, une première en Europe</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://actu.fr/occitanie/castres_81065/occitanie-vouee-a-etre-detruite-cette-eglise-devient-le-theatre-d-un-projet-surprenant_55001714.html" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">actu.fr</span><img src="presse/actu-eglise.jpg" alt="Capture de l'article : Vouée à être détruite, cette église devient le théâtre d'un projet surprenant" loading="lazy"></div>
-        <div class="b"><small>2022</small><h3>Vouée à être détruite, cette église devient le théâtre d'un projet surprenant</h3><p>Deux entrepreneurs aménagent des escape rooms dans une église désacralisée.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/actu-eglise.jpg" alt="Capture de l'article : Vouée à être détruite, cette église devient le théâtre d'un projet surprenant" loading="lazy"></div>
+        <div class="b"><small><b>actu.fr</b> · 2022</small><h3>Vouée à être détruite, cette église devient le théâtre d'un projet surprenant</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
-      <a class="clip big rv d1" href="https://www.ladepeche.fr/2023/11/18/avec-le-complexe-steven-et-quentin-veulent-revolutionner-les-loisirs-a-castres-11588168.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-complexe-2023.jpg" alt="Capture de l'article : Avec Le Complexe, Steven et Quentin veulent révolutionner les loisirs à Castres" loading="lazy"></div>
-        <div class="b"><small>18 novembre 2023</small><h3>Avec Le Complexe, Steven et Quentin veulent révolutionner les loisirs à Castres</h3><p>L'ouverture du Complexe, avec ses fury rooms et ses 1&nbsp;600 m² d'activités.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+      <a class="clip rv d1" href="https://www.ladepeche.fr/2023/11/18/avec-le-complexe-steven-et-quentin-veulent-revolutionner-les-loisirs-a-castres-11588168.php" target="_blank" rel="noopener">
+        <div class="shot"><img src="presse/ladepeche-complexe-2023.jpg" alt="Capture de l'article : Avec Le Complexe, Steven et Quentin veulent révolutionner les loisirs à Castres" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 18 novembre 2023</small><h3>Avec Le Complexe, Steven et Quentin veulent révolutionner les loisirs à Castres</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://www.ladepeche.fr/2025/02/13/on-a-pris-le-risque-et-ca-a-marche-le-pari-douvrir-un-escape-game-dans-une-ancienne-eglise-a-castres-est-gagne-12495896.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-escape-2025.jpg" alt="Capture de l'article : « On a pris le risque et ça a marché » : le pari de l'escape game dans une église est gagné" loading="lazy"></div>
-        <div class="b"><small>13 février 2025</small><h3>« On a pris le risque et ça a marché » : le pari de l'escape game dans une église est gagné</h3><p>Deux ans après, le bilan de l'escape game de Castres.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/ladepeche-escape-2025.jpg" alt="Capture de l'article : « On a pris le risque et ça a marché » : le pari de l'escape game dans une église est gagné" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 13 février 2025</small><h3>« On a pris le risque et ça a marché » : le pari de l'escape game dans une église est gagné</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.ladepeche.fr/2021/02/05/castres-ils-rachetent-la-chapelle-du-saint-sacrement-pour-en-faire-un-lieu-devenementiel-9355732.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-chapelle-2021.jpg" alt="Capture de l'article : Castres : ils rachètent la chapelle du Saint-Sacrement" loading="lazy"></div>
-        <div class="b"><small>5 février 2021</small><h3>Castres : ils rachètent la chapelle du Saint-Sacrement</h3><p>Le rachat de la chapelle, à l'abandon depuis plus de 10 ans.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/ladepeche-chapelle-2021.jpg" alt="Capture de l'article : Castres : ils rachètent la chapelle du Saint-Sacrement" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 5 février 2021</small><h3>Castres : ils rachètent la chapelle du Saint-Sacrement</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://www.lejournaldici.com/actualite/a-la-une/leur-projet-va-ressusciter-la-chapelle-du-saint-sacrement" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Le Journal d'Ici</span><img src="presse/journaldici-chapelle.jpg" alt="Capture de l'article : Leur projet va ressusciter la chapelle du Saint-Sacrement" loading="lazy"></div>
-        <div class="b"><small>29 janvier 2021</small><h3>Leur projet va ressusciter la chapelle du Saint-Sacrement</h3><p>Un chantier hors norme, mené entièrement par les deux associés.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/journaldici-chapelle.jpg" alt="Capture de l'article : Leur projet va ressusciter la chapelle du Saint-Sacrement" loading="lazy"></div>
+        <div class="b"><small><b>Le Journal d'Ici</b> · 29 janvier 2021</small><h3>Leur projet va ressusciter la chapelle du Saint-Sacrement</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.letarnlibre.com/actualite-1054-castres-castres-un-escape-game-geant-dans-une-eglise" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Le Tarn Libre</span><img src="presse/tarnlibre-escape.jpg" alt="Capture de l'article : Castres : un escape game géant dans une église" loading="lazy"></div>
-        <div class="b"><small>6 décembre 2022</small><h3>Castres : un escape game géant dans une église</h3><p>La chapelle du Saint-Sacrement transformée en escape game géant.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/tarnlibre-escape.jpg" alt="Capture de l'article : Castres : un escape game géant dans une église" loading="lazy"></div>
+        <div class="b"><small><b>Le Tarn Libre</b> · 6 décembre 2022</small><h3>Castres : un escape game géant dans une église</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://www.ladepeche.fr/2021/12/13/castres-ils-ouvrent-une-laverie-libre-service-unique-en-france-9989607.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-laverie-2021.jpg" alt="Capture de l'article : Castres : ils ouvrent une laverie libre-service unique en France" loading="lazy"></div>
-        <div class="b"><small>13 décembre 2021</small><h3>Castres : ils ouvrent une laverie libre-service unique en France</h3><p>Une laverie « multi-services », avec distributeurs automatiques.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/ladepeche-laverie-2021.jpg" alt="Capture de l'article : Castres : ils ouvrent une laverie libre-service unique en France" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 13 décembre 2021</small><h3>Castres : ils ouvrent une laverie libre-service unique en France</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.centpourcent.com/les-infos-10/castres-deux-entrepreneurs-lancent-la-premiere-laverie-a-l-ozone-de-france-14617" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">100% Radio</span><img src="presse/100radio-laverie.jpg" alt="Capture de l'article : Deux entrepreneurs lancent la première laverie à l'ozone de France" loading="lazy"></div>
-        <div class="b"><small>15 décembre 2021</small><h3>Deux entrepreneurs lancent la première laverie à l'ozone de France</h3><p>Une première en France, pensée comme un commerce de proximité.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/100radio-laverie.jpg" alt="Capture de l'article : Deux entrepreneurs lancent la première laverie à l'ozone de France" loading="lazy"></div>
+        <div class="b"><small><b>100% Radio</b> · 15 décembre 2021</small><h3>Deux entrepreneurs lancent la première laverie à l'ozone de France</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://www.ladepeche.fr/2021/05/26/avec-ses-trottinettes-electriques-en-libre-service-bird-a-seduit-les-castrais-9566517.php" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">La Dépêche</span><img src="presse/ladepeche-trottinettes-2021.jpg" alt="Capture de l'article : Avec ses trottinettes électriques en libre-service, Bird a séduit les Castrais" loading="lazy"></div>
-        <div class="b"><small>26 mai 2021</small><h3>Avec ses trottinettes électriques en libre-service, Bird a séduit les Castrais</h3><p>Les deux associés, gestionnaires de la flotte de trottinettes.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/ladepeche-trottinettes-2021.jpg" alt="Capture de l'article : Avec ses trottinettes électriques en libre-service, Bird a séduit les Castrais" loading="lazy"></div>
+        <div class="b"><small><b>La Dépêche</b> · 26 mai 2021</small><h3>Avec ses trottinettes électriques en libre-service, Bird a séduit les Castrais</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.ici.fr/infos/transports/la-nouvelle-eco-ces-castrais-cartonnent-avec-leurs-trottinettes-electriques-en-centre-ville-1622585949" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">ici (France Bleu)</span><img src="presse/francebleu-trottinettes.jpg" alt="Capture de l'article : Ces Castrais cartonnent avec leurs trottinettes électriques en centre-ville" loading="lazy"></div>
-        <div class="b"><small>3 juin 2021</small><h3>Ces Castrais cartonnent avec leurs trottinettes électriques en centre-ville</h3><p>1&nbsp;700 trajets dès la première semaine.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/francebleu-trottinettes.jpg" alt="Capture de l'article : Ces Castrais cartonnent avec leurs trottinettes électriques en centre-ville" loading="lazy"></div>
+        <div class="b"><small><b>ici (France Bleu)</b> · 3 juin 2021</small><h3>Ces Castrais cartonnent avec leurs trottinettes électriques en centre-ville</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://www.demotivateur.fr/insolite/harry-potter-cet-escape-game-sur-le-monde-des-sorciers-a-ouvert-dans-une-ancienne-eglise-31618" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Demotivateur</span><img src="presse/demotivateur-escape.jpg" alt="Capture de l'article : Un escape game sur le monde des sorciers a ouvert dans une ancienne église" loading="lazy"></div>
-        <div class="b"><small>4 novembre 2022</small><h3>Un escape game sur le monde des sorciers a ouvert dans une ancienne église</h3><p>L'église de 1890, rachetée puis entièrement rénovée.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/demotivateur-escape.jpg" alt="Capture de l'article : Un escape game sur le monde des sorciers a ouvert dans une ancienne église" loading="lazy"></div>
+        <div class="b"><small><b>Demotivateur</b> · 4 novembre 2022</small><h3>Un escape game sur le monde des sorciers a ouvert dans une ancienne église</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.lejournaldici.com/actualite-21406-castres-faire-des-creations-en-briques-compatibles-lego-une-nouvelle-activite-a-tester" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Le Journal d'Ici</span><img src="presse/journaldici-mybricks.jpg" alt="Capture de l'article : Faire des créations en briques compatibles Lego : une nouvelle activité à tester" loading="lazy"></div>
-        <div class="b"><small>5 octobre 2025</small><h3>Faire des créations en briques compatibles Lego : une nouvelle activité à tester</h3><p>L'ouverture de My Bricks à Castres.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/journaldici-mybricks.jpg" alt="Capture de l'article : Faire des créations en briques compatibles Lego : une nouvelle activité à tester" loading="lazy"></div>
+        <div class="b"><small><b>Le Journal d'Ici</b> · 5 octobre 2025</small><h3>Faire des créations en briques compatibles Lego : une nouvelle activité à tester</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv" href="https://fr.wikipedia.org/wiki/Couvent_du_Saint-Sacrement_de_Castres" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Wikipédia</span><img src="presse/wikipedia-couvent.jpg" alt="Capture de l'article : Couvent du Saint-Sacrement de Castres" loading="lazy"></div>
-        <div class="b"><small>Encyclopédie</small><h3>Couvent du Saint-Sacrement de Castres</h3><p>Le rachat en 2021 et la transformation en escape game.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/wikipedia-couvent.jpg" alt="Capture de l'article : Couvent du Saint-Sacrement de Castres" loading="lazy"></div>
+        <div class="b"><small><b>Wikipédia</b> · Encyclopédie</small><h3>Couvent du Saint-Sacrement de Castres</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
       <a class="clip rv d1" href="https://www.evangeliques.info/2022/11/14/france-l-ancienne-eglise-de-castres-se-transforme-en-escape-game/" target="_blank" rel="noopener">
-        <div class="shot"><span class="badge">Évangéliques.info</span><img src="presse/evangeliques-escape.jpg" alt="Capture de l'article : L'ancienne église de Castres se transforme en escape game" loading="lazy"></div>
-        <div class="b"><small>14 novembre 2022</small><h3>L'ancienne église de Castres se transforme en escape game</h3><p>Le rachat de l'église pour protéger ce patrimoine.</p><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+        <div class="shot"><img src="presse/evangeliques-escape.jpg" alt="Capture de l'article : L'ancienne église de Castres se transforme en escape game" loading="lazy"></div>
+        <div class="b"><small><b>Évangéliques.info</b> · 14 novembre 2022</small><h3>L'ancienne église de Castres se transforme en escape game</h3><span class="go">Lire l'article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
       </a>
     </div>
     <div class="plist rv">
@@ -638,7 +642,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
           <span class="who2">Vous voulez reprendre une entreprise</span>
           <h3>Académie des Repreneurs</h3>
           <p>Avec mon associé, nous vous apprenons à racheter une entreprise rentable plutôt que de partir de zéro. C'est ce que nous avons fait nous-mêmes.</p>
-          <ul><li>Trouver des cibles et approcher les cédants</li><li>Analyser les dossiers, préparer les rendez-vous</li><li>Financer et négocier la reprise</li><li>Un suivi individuel, des lives et des débriefs</li></ul>
+          <ul><li>Trouver des cibles et approcher les cédants</li><li>Analyser les dossiers, préparer les rendez-vous</li><li>Financer et négocier la reprise</li><li>Un suivi individuel, des lives et des débriefs</li></ul><a class="ob" href="https://www.academiedesrepreneurs.fr/" target="_blank" rel="noopener">Découvrir l'Académie des Repreneurs</a>
         </div>
       </article>
       <article class="offer rv d1">
@@ -647,7 +651,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
           <span class="who2">Vous avez déjà une entreprise</span>
           <h3>Académie des Entrepreneurs</h3>
           <p>Je vous aide à structurer et développer votre société pour sortir de l'opérationnel.</p>
-          <ul><li>Un audit complet de l'entreprise</li><li>Process, délégation et recrutement</li><li>Un plan d'action clair</li><li>Un an de coaching</li></ul>
+          <ul><li>Un audit complet de l'entreprise</li><li>Process, délégation et recrutement</li><li>Un plan d'action clair</li><li>Un an de coaching</li></ul><a class="ob" href="https://www.academiedesentrepreneurs.fr/" target="_blank" rel="noopener">Découvrir l'Académie des Entrepreneurs</a>
         </div>
       </article>
       <article class="offer full rv">
@@ -665,7 +669,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </article>
     </div>
-    <div class="sem rv"><span class="e">🎤</span><span>Je co-organise aussi le <b>Séminaire Business Réel</b> : des entrepreneurs de terrain qui partagent ce qui marche vraiment.</span></div>
+    <a class="sem rv" href="https://www.academiedesrepreneurs.fr/businessreel2027/" target="_blank" rel="noopener"><span class="e">🎤</span><span>Je co-organise aussi le <b>Séminaire Business Réel</b> : des entrepreneurs de terrain qui partagent ce qui marche vraiment.</span><span class="sg">Voir le séminaire</span></a>
   </div>
 </section>
 
@@ -719,6 +723,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     });
   }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  // presse : flèches
+  var cl=document.getElementById('clips');
+  document.getElementById('pprev').onclick=function(){cl.scrollBy({left:-540,behavior:'smooth'})};
+  document.getElementById('pnext').onclick=function(){cl.scrollBy({left:540,behavior:'smooth'})};
 
   // portes : l'image suit légèrement la souris
   if (!reduce && matchMedia('(pointer:fine)').matches) {
