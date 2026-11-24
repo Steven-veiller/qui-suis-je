@@ -109,8 +109,9 @@ const j=await r.json();if(j.error)throw new Error(j.error);data=j;$("loginv").hi
 $("live").lastChild.textContent=" Mis à jour à "+hm(j.now)}catch(e){if(!data)showLogin("Connexion impossible pour le moment, réessaie.");else $("live").lastChild.textContent=" Hors ligne, nouvel essai bientôt"}}
 function showLogin(m){$("appv").hidden=true;$("loginv").hidden=false;$("err").textContent=m||"";$("code").value=code}
 
-function status(s){if(s.finals.length)return["Envoyé","var(--teal)"];if(Date.now()-new Date(s.last)<5*60000)return["En train de répondre","var(--pink)"];return["En cours","var(--violet)"]}
+function status(s){if(s.finals.length)return["Envoyé","var(--teal)"];if(!s.opened&&!s.flat.some(f=>f.v))return["A ouvert le lien, pas encore commencé","var(--taupe)"];if(Date.now()-new Date(s.last)<5*60000)return["En train de répondre","var(--pink)"];return["En cours","var(--violet)"]}
 
+function lastVisit(s){const v=(s.visits||[]).filter(x=>x[0]!=="leave");return v.length?v[v.length-1][1]:s.first}
 function textOf(s){let o="# Questionnaire Axès RH — réponses d'Angélique\n";let st=-1;for(const f of s.flat){if(f.s!==st){st=f.s;o+=`\n## ${f.st}\n`}o+=`\n**${f.l}**\n${f.v||"(pas de réponse)"}\n`}return o}
 
 function render(){
@@ -120,7 +121,8 @@ if(sel>=L.length)sel=0;const s=L[sel];
 const [lab,col]=status(s);const answered=s.flat.filter(f=>f.v).length,total=s.flat.length;
 const C=2*Math.PI*52,off=C*(1-(s.pct||0)/100);
 const ev=[];
-if(s.opened)ev.push([s.opened,"A ouvert le questionnaire"]);
+for(const [k,t] of (s.visits||[]))ev.push([t,k==="open"?"<em>A ouvert le lien</em>":k==="back"?"Est revenue sur la page":"A quitté la page"]);
+if(s.opened)ev.push([s.opened,"A cliqué sur « Commencer le parcours »"]);
 for(const [i,t] of Object.entries(s.steps||{}))if(+i>0)ev.push([t,+i<STEPS.length?`Arrivée à l'étape ${+i+1} · ${STEPS[+i]||""}`:"Arrivée au récapitulatif"]);
 for(const f of s.flat)if(f.t)ev.push([f.t.first,`A répondu : <em>${esc(f.l)}</em>`]);
 for(const f of s.files)if(f.at)ev.push([f.at,`A déposé : <em>${esc(f.n)}</em>`]);
@@ -131,7 +133,7 @@ const notif=(s.notifs||[])[0];
 m.innerHTML=`${L.length>1?`<div class="sel">${L.map((x,i)=>`<button data-sel="${i}" aria-pressed="${i===sel}">Appareil ${L.length-i} · ${esc(ago(x.last))}</button>`).join("")}</div>`:""}
 <section class="hero"><div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="60" cy="60" r="52" fill="none" stroke="url(#g)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/><defs><linearGradient id="g"><stop offset="0" stop-color="#a83fd0"/><stop offset="1" stop-color="#2ebfa5"/></linearGradient></defs></svg><b>${s.pct||0}%</b></div>
 <div><span class="badge" style="background:${col}">${lab}</span><h2>${s.finals.length?"Angélique a envoyé ses réponses":`Étape ${Math.min((s.cur||0)+1,STEPS.length)} · ${esc(STEPS[s.cur]||"Récap")}`}</h2>
-<div class="kv"><div><small>Commencé</small><b>${fmt(s.opened||s.first)}</b></div><div><small>Dernière activité</small><b>${esc(ago(s.last))}</b><small>${fmt(s.last)}</small></div><div><small>Questions remplies</small><b>${answered} / ${total}</b></div><div><small>Envoyé</small><b>${s.finals.length?fmt(s.finals[s.finals.length-1]):"Pas encore"}</b>${notif?`<small>Alerte mail : ${/formsubmit 200/.test(notif.statut)?"partie":esc(notif.statut.slice(0,60))}</small>`:""}</div><div><small>Fichiers</small><b>${s.files.length}</b></div></div></div></section>
+<div class="kv"><div><small>Première ouverture du lien</small><b>${fmt(((s.visits||[]).find(v=>v[0]==="open")||[])[1]||s.first)}</b></div><div><small>Dernière visite</small><b>${esc(ago(lastVisit(s)))}</b><small>${fmt(lastVisit(s))} · ${(s.visits||[]).filter(v=>v[0]!=="leave").length} visite(s)</small></div><div><small>Commencé</small><b>${s.opened?fmt(s.opened):"Pas encore"}</b></div><div><small>Dernière activité</small><b>${esc(ago(s.last))}</b><small>${fmt(s.last)}</small></div><div><small>Questions remplies</small><b>${answered} / ${total}</b></div><div><small>Envoyé</small><b>${s.finals.length?fmt(s.finals[s.finals.length-1]):"Pas encore"}</b>${notif?`<small>Alerte mail : ${/formsubmit 200/.test(notif.statut)?"partie":esc(notif.statut.slice(0,60))}</small>`:""}</div><div><small>Fichiers</small><b>${s.files.length}</b></div></div></div></section>
 <div class="tools"><button id="copy">Copier toutes les réponses</button><button class="ghost" id="json">Télécharger en JSON</button><button class="ghost" id="txt">Télécharger en texte</button></div>
 <div class="grid"><div>
 <div class="card"><h3>Réponses par étape</h3>${steps.map((st,i)=>{if(!st)return"";const n=st.q.filter(q=>q.v).length;return `<details${i===(s.cur||0)?" open":""}><summary>${i+1}. ${esc(st.t)}<span class="${n===st.q.length?"full":""}">${n} / ${st.q.length}</span></summary>${st.q.map(q=>`<div class="qa${q.v?" on":""}"><div class="l">${esc(q.l)}</div>${q.v?`<div class="v">${esc(q.v)}</div><div class="t">Répondu ${fmt(q.t&&q.t.first)}${q.t&&q.t.last!==q.t.first?` · modifié ${fmt(q.t.last)}`:""}</div>`:`<div class="none">Pas encore répondu</div>`}</div>`).join("")}</details>`}).join("")}</div>

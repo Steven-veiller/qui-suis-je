@@ -568,6 +568,9 @@ if(ok){burst(innerWidth/2,innerHeight/3,140);if(sb){try{fetch(SUPABASE_URL+"/fun
 m.innerHTML=ok?'<div class="sent"><svg viewBox="0 0 64 56" aria-hidden="true"><polygon points="32,3 61,53 3,53" fill="url(#sg)"/><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a83fd0"/><stop offset="1" stop-color="#2ebfa5"/></linearGradient></defs><path d="M21 36l8 8 15-17" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Parfait !</b>Un message a été envoyé à Steven pour qu\'il puisse commencer à construire ton poste de pilotage. Merci Angélique !</div></div>':'<p class="ok">L\'envoi en ligne n\'est pas disponible ici. Clique sur « Copier mes réponses » et envoie-les par message.</p>'}
 });
 setInterval(()=>push(false),20000);
+function visit(kind){A._visits=A._visits||[];A._visits.push([kind,new Date().toISOString()]);if(A._visits.length>300)A._visits=A._visits.slice(-300);dirty=true;try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}}
+visit("open");setTimeout(()=>push(false),1200);
+let lastVis=0;document.addEventListener("visibilitychange",()=>{const n=Date.now();if(document.hidden){visit("leave");push(false)}else if(n-lastVis>60000){visit("back");push(false)}lastVis=n});
 
 if(Object.keys(A).length>2){$("start").textContent="Reprendre là où tu t'étais arrêtée"}
 (async()=>{try{if(!window.claude||!window.claude.use)return;
