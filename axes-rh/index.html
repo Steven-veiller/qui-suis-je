@@ -318,7 +318,7 @@ function docLines(){const F=A.files||[],out=[];DOCS.forEach(([g,Ls],gi)=>Ls.forE
 function fileLines(){const F=(A.files||[]).filter(f=>!f.d);return F.length?[["Autres documents envoyés",F.map(f=>f.n+(f.url?" (reçu)":" (à envoyer à Steven)")).join("\n")]]:[]}
 function fileList(k){const F=(A.files||[]).map((f,i)=>[f,i]).filter(([f])=>(f.d||"")===(k||""));return F.map(([f,i])=>`<li><span class="fi">${esc((f.n.split(".").pop()||"").slice(0,4).toUpperCase())}</span><span class="fn">${esc(f.n)}<small>${f.st==="up"?"Envoi en cours…":f.url?"Reçu par Steven et Claude":"Gardé dans la liste : Steven te dira comment le lui envoyer"}</small></span><button type="button" class="x" data-rmf="${i}" aria-label="Retirer ${esc(f.n)}">×</button></li>`).join("")}
 async function addFiles(list,k,from){const F=A.files||(A.files=[]);const todo=[];
-for(const f of list){const row={n:f.name,size:f.size,d:k||""};F.push(row);if((sb&&f.size<50*1024*1024)||(assets&&OKTYPE.test(f.type)&&f.size<20*1024*1024)){row.st="up";todo.push([row,f])}}
+for(const f of list){const row={n:f.name,size:f.size,d:k||"",label:k?docName(k):"Autres documents",at:new Date().toISOString()};F.push(row);if((sb&&f.size<50*1024*1024)||(assets&&OKTYPE.test(f.type)&&f.size<20*1024*1024)){row.st="up";todo.push([row,f])}}
 store();refreshFiles();if(from&&list.length){const [x,y]=at(from);burst(x,y,24)}
 for(const [row,f] of todo){try{if(sb){const safe=f.name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]+/g,"_").slice(-80);const path=`${A._sid}/${row.d||"autres"}/${Date.now()}-${safe}`;const {error}=await sb.storage.from("axes-rh").upload(path,f,{contentType:f.type||"application/octet-stream",upsert:false});if(error)throw error;row.url="supabase";row.path=path}else{const r=await assets.upload(f);row.url=r.url;row.id=r.id}}catch(e){}delete row.st;store();refreshFiles()}push(false)}
 function refreshFiles(){app.querySelectorAll("ul.flist[data-k]").forEach(ul=>{const k=ul.dataset.k;ul.innerHTML=fileList(k);const has=(A.files||[]).some(f=>(f.d||"")===k);const row=ul.previousElementSibling;if(row&&row.classList.contains("doc")){row.classList.toggle("has",has);const s=row.querySelector(".upl span");if(s)s.textContent=has?"Ajouter":"Envoyer"}});
@@ -480,6 +480,12 @@ function ideaLines(){const I=A.idees||{},yes=[],no=[];IDEAS.forEach(([g,L],gi)=>
 function icount(){const el=$("icount");if(!el)return;const v=Object.values(A.idees||{});const y=v.filter(x=>x===1).length,n=v.filter(x=>x===-1).length;el.textContent=`${y} idée${y>1?"s":""} choisie${y>1?"s":""} · ${n} écartée${n>1?"s":""}`}
 function taskLines(){return allTasks().map(t=>{const h=A["h_"+t[0]],f=(A["f_"+t[0]]||[]).join(", ");return h||f?[t[1],(h?h+" h/sem":"")+(h&&f?" · ":"")+f]:null}).filter(Boolean)}
 
+function flat(){const out=[];S.forEach((s,si)=>s.q.forEach(q=>{const add=(id,l,v)=>out.push({s:si,st:s.h,id,l,v:v||""});
+if(q.t==="tasks"){allTasks().forEach(t=>{const hh=A["h_"+t[0]],f=(A["f_"+t[0]]||[]).join(", ");add("h_"+t[0],"Temps : "+t[1],hh||f?(hh?hh+" h/sem":"")+(hh&&f?" · ":"")+f:"")});return}
+if(q.t==="ideas"){const L=ideaLines();add("idees_oui","Idées voulues",(L.find(x=>x[0]==="Idées voulues")||[])[1]);add("idees_non","Idées refusées",(L.find(x=>x[0]==="Idées refusées")||[])[1]);return}
+if(q.t==="docs"){DOCS.forEach(([g,Ls],gi)=>Ls.forEach((x,i)=>{const k=dk(gi,i);add("doc_"+k,"Document : "+x[0],(A.files||[]).filter(f=>f.d===k).map(f=>f.n).join("\n"))}));return}
+if(q.t==="files"){add("fichiers","Autres documents",(A.files||[]).filter(f=>!f.d).map(f=>f.n).join("\n"));return}
+add(q.id,q.l,val(q))}));return out}
 function md(){let o="# Audit Axès RH — réponses d'Angélique\n";
 for(const s of S){o+=`\n## ${s.h}\n`;for(const q of s.q){if(q.t==="docs"||q.t==="files"){for(const [a,b] of (q.t==="docs"?docLines():fileLines()))o+=`\n**${a}**\n`+b.split("\n").map(x=>"- "+x).join("\n")+"\n";continue}if(q.t==="ideas"){for(const [a,b] of ideaLines())o+=`\n**${a}**\n`+b.split("\n").map(x=>"- "+x).join("\n")+"\n";continue}if(q.t==="tasks"){o+="\n**Temps et ressenti par tâche**\n"+taskLines().map(([a,b])=>`- ${a} : ${b}`).join("\n")+"\n";continue}
 o+=`\n**${q.l}**\n${val(q)||"_(pas de réponse)_"}\n`}}return o}
@@ -504,7 +510,7 @@ app.querySelectorAll("[data-f]").forEach(el=>{el.value=A[el.dataset.f]||"";if(el
 function store(){A._updated=new Date().toISOString();dirty=true;try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}say("Enregistré sur cet appareil.");head()}
 
 async function push(final){
-if(!dirty&&!final)return null;const row={session_id:A._sid,answers:A,markdown:md(),final:!!final};
+if(!dirty&&!final)return null;A._cur=cur;const all=S.flatMap(s=>s.q);const row={session_id:A._sid,answers:{...A,_flat:flat(),_pct:Math.round(all.filter(filled).length/all.length*100)},markdown:md(),final:!!final};
 try{
 if(sb){const {error}=await sb.from(TABLE).insert(row);if(error)throw error}
 else if(cdb){await cdb.doc("reponses/"+A._sid).set({...row,updatedAt:new Date().toISOString()})}
@@ -528,7 +534,7 @@ r.onresult=e=>{let part="";for(let i=e.resultIndex;i<e.results.length;i++){const
 r.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){rec=null;micId=null;micUI();setPartial("Micro refusé : autorise-le dans ton navigateur, ou utilise le micro de ton clavier.")}};
 r.onend=()=>{if(rec===r&&micId===id){try{r.start()}catch(_){}}else setPartial("")};
 rec=r;micId=id;micUI();try{r.start()}catch(e){}}
-function goTo(i){if(i<0||i>S.length)return;if(micId)stopMic();animNext=true;if(i===cur+1&&cur<S.length&&ratio(S[cur])>=.6){const [x,y]=at($("next"));burst(x,y,40)}push(false);cur=i;render();window.scrollTo({top:0,behavior:"smooth"})}
+function goTo(i){if(i<0||i>S.length)return;A._steps=A._steps||{};if(!A._steps[i]){A._steps[i]=new Date().toISOString();dirty=true}if(micId)stopMic();animNext=true;if(i===cur+1&&cur<S.length&&ratio(S[cur])>=.6){const [x,y]=at($("next"));burst(x,y,40)}push(false);cur=i;render();window.scrollTo({top:0,behavior:"smooth"})}
 
 document.addEventListener("change",e=>{const t=e.target;if(!t.files||!t.files.length)return;if(t.id==="filein"){addFiles([...t.files],"",$("drop"));t.value=""}else if(t.dataset.docfile){addFiles([...t.files],t.dataset.docfile,t.closest(".upl"));t.value=""}});
 document.addEventListener("dragover",e=>{const d=e.target.closest&&e.target.closest("#drop");if(d){e.preventDefault();d.classList.add("over")}});
@@ -538,7 +544,7 @@ document.addEventListener("input",e=>{const f=e.target.dataset&&e.target.dataset
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.add){e.preventDefault();addExtra(e.target.dataset.add);return}const g=e.target.closest&&e.target.closest("g[data-go]");if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();goTo(+g.dataset.go)}});
 document.addEventListener("click",async e=>{
 const t=e.target;
-if(t.id==="start"){$("cover").hidden=true;$("survey").hidden=false;render();window.scrollTo(0,0);return}
+if(t.id==="start"){A._steps=A._steps||{};if(!A._opened){A._opened=new Date().toISOString();A._steps[0]=A._opened;dirty=true}else{A._reopened=new Date().toISOString();dirty=true}setTimeout(()=>push(false),300);$("cover").hidden=true;$("survey").hidden=false;render();window.scrollTo(0,0);return}
 if(t.id==="addtask"){A.nc=(A.nc||0)+1;store();const y=window.scrollY;render();window.scrollTo(0,y);const ins=app.querySelectorAll('[data-f^="cn_"]');if(ins.length)ins[ins.length-1].focus({preventScroll:true});return}
 if(t.id==="next"){goTo(cur+1);return}if(t.id==="prev"){goTo(cur-1);return}
 const g=t.closest("g[data-go]");if(g){goTo(+g.dataset.go);return}
@@ -558,7 +564,7 @@ if(a.includes(v))A.top=a.filter(x=>x!==v);else if(a.length<3)A.top=[...a,v];else
 store();const y=window.scrollY;render();window.scrollTo(0,y);return}
 if(t.id==="copy"){const m=$("msg");try{await navigator.clipboard.writeText(md());m.innerHTML='<p class="ok">Copié. Colle-le dans un mail ou un message et envoie-le.</p>'}catch(err){m.innerHTML='<p class="ok">La copie automatique est bloquée ici. Sélectionne le récap ci-dessous et copie-le à la main.</p>'}return}
 if(t.id==="send"){const m=$("msg");t.disabled=true;const ok=await push(true);t.disabled=false;
-if(ok){burst(innerWidth/2,innerHeight/3,140)}
+if(ok){burst(innerWidth/2,innerHeight/3,140);if(sb){try{fetch(SUPABASE_URL+"/functions/v1/axes-notif",{method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_ANON_KEY},body:JSON.stringify({session_id:A._sid})}).catch(()=>{})}catch(e){}}}
 m.innerHTML=ok?'<div class="sent"><svg viewBox="0 0 64 56" aria-hidden="true"><polygon points="32,3 61,53 3,53" fill="url(#sg)"/><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a83fd0"/><stop offset="1" stop-color="#2ebfa5"/></linearGradient></defs><path d="M21 36l8 8 15-17" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>Parfait !</b>Un message a été envoyé à Steven pour qu\'il puisse commencer à construire ton poste de pilotage. Merci Angélique !</div></div>':'<p class="ok">L\'envoi en ligne n\'est pas disponible ici. Clique sur « Copier mes réponses » et envoie-les par message.</p>'}
 });
 setInterval(()=>push(false),20000);
